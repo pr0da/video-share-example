@@ -5,15 +5,17 @@ import * as FileSystem from 'expo-file-system';
 import { StyleSheet, Text, View, Button, Share } from 'react-native';
 
 export default function App() {
-  const [videoAssets] = useAssets([
+  const [assets] = useAssets([
     require('./assets/sample-video.mp4'),
     require('./assets/sample-video.webm'),
+    require('./assets/sample.jpeg'),
   ]);
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      {videoAssets?.map((asset) => (
+      {assets?.map((asset) => (
         <Button
+          key={asset.localUri}
           onPress={async () => {
             if (asset?.localUri) {
               const contentUrl = await FileSystem.getContentUriAsync(
